@@ -1,6 +1,6 @@
 import Tracklist from '../Tracklist/Tracklist';
 
-function Playlist({ playlistName, playlistTracks, onRemove, onNameChange }) {
+function Playlist({ playlistName, playlistTracks, onRemove, onNameChange, onSave }) {
   function handleNameChange(event) {
     onNameChange(event.target.value);
   }
@@ -9,7 +9,7 @@ function Playlist({ playlistName, playlistTracks, onRemove, onNameChange }) {
     <div className="Playlist">
       <input value={playlistName} onChange={handleNameChange} />
       <Tracklist tracks={playlistTracks} onRemove={onRemove} />
-      <button className="Playlist-save">Save To Spotify</button>
+      <button className="Playlist-save" onClick={onSave}>Save To Spotify</button>
     </div>
   );
 }
