@@ -1,11 +1,9 @@
 import Tracklist from '../Tracklist/Tracklist';
 
-function Playlist() {
-  const playlistTracks = [];
-
+function Playlist({ playlistName, playlistTracks }) {
   return (
     <div className="Playlist">
-      <input defaultValue="New Playlist" />
+      <input value={playlistName} readOnly />
       <Tracklist tracks={playlistTracks} />
       <button className="Playlist-save">Save To Spotify</button>
     </div>
