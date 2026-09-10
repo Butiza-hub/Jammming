@@ -1,6 +1,10 @@
-function Track({ track, onAdd }) {
-  function handleClick() {
+function Track({ track, onAdd, onRemove }) {
+  function handleAdd() {
     if (onAdd) onAdd(track);
+  }
+
+  function handleRemove() {
+    if (onRemove) onRemove(track);
   }
 
   return (
@@ -9,7 +13,12 @@ function Track({ track, onAdd }) {
         <h3>{track.name}</h3>
         <p>{track.artist} | {track.album}</p>
       </div>
-      <button className="Track-action" onClick={handleClick}>+</button>
+      {onAdd && (
+        <button className="Track-action" onClick={handleAdd}>+</button>
+      )}
+      {onRemove && (
+        <button className="Track-action" onClick={handleRemove}>-</button>
+      )}
     </div>
   );
 }
