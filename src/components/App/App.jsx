@@ -17,12 +17,18 @@ function App() {
     { id: '5', name: 'Flowers', artist: 'Miley Cyrus', album: 'Endless Summer Vacation' },
   ]);
 
+  function addTrack(track) {
+    const alreadyAdded = playlistTracks.some((t) => t.id === track.id);
+    if (alreadyAdded) return;
+    setPlaylistTracks([...playlistTracks, track]);
+  }
+
   return (
     <div>
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
       <SearchBar />
       <div className="App-playlist">
-        <SearchResults searchResults={searchResults} />
+        <SearchResults searchResults={searchResults} onAdd={addTrack} />
         <Playlist playlistName={playlistName} playlistTracks={playlistTracks} />
       </div>
     </div>

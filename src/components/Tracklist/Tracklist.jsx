@@ -1,10 +1,10 @@
 import Track from '../Track/Track';
 
-function Tracklist({ tracks }) {
+function Tracklist({ tracks, onAdd }) {
   return (
     <div className="Tracklist">
       {tracks.map((track) => (
-        <Track key={track.id} track={track} />
+        <Track key={track.id} track={track} onAdd={onAdd} />
       ))}
     </div>
   );
