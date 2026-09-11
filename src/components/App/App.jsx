@@ -25,13 +25,21 @@ function App() {
     setPlaylistName(name);
   }
 
-  function savePlaylist() {
-    const trackUris = playlistTracks.map((track) => track.uri);
-    console.log('Saving these URIs to Spotify:', trackUris);
+function savePlaylist() {
+  const savedPlaylists = JSON.parse(localStorage.getItem('savedPlaylists')) || [];
+  const newPlaylist = {
+    name: playlistName,
+    tracks: playlistTracks,
+    savedAt: new Date().toISOString(),
+  };
+  savedPlaylists.push(newPlaylist);
+  localStorage.setItem('savedPlaylists', JSON.stringify(savedPlaylists));
 
-    setPlaylistName('New Playlist');
-    setPlaylistTracks([]);
-  }
+  console.log('Playlist saved locally:', newPlaylist);
+
+  setPlaylistName('New Playlist');
+  setPlaylistTracks([]);
+}
 
 function search(term) {
   MusicApi.search(term).then((results) => {
