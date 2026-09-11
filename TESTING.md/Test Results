@@ -1,0 +1,36 @@
+# Jammming — Testing & Debugging Log
+
+This document records the manual testing process for Jammming, as part of Task 13 of the Codecademy React project.
+
+## Testing approach
+
+Testing was performed manually in the browser throughout development, using the browser DevTools Console to inspect state, errors, and stored data. Each core feature was tested individually after implementation, then re-verified together in a final end-to-end pass.
+
+## Test cases and results
+
+| # | Test case | Steps | Expected result | Result |
+|---|---|---|---|---|
+| 1 | Search returns results | Type a query (e.g. "Flowers") into the search bar, click Search | Real track results from the iTunes Search API appear in the Results section | ✅ Pass |
+| 2 | Add track to playlist | Click "+" on a track in Results | Track appears in the Playlist section | ✅ Pass |
+| 3 | Duplicate prevention | Click "+" on the same track a second time | Track is not added twice; playlist count stays the same | ✅ Pass |
+| 4 | Remove track from playlist | Click "−" on a track in the Playlist | Track is removed from the Playlist section | ✅ Pass |
+| 5 | Rename playlist | Click into the playlist name field, type a new name | Name updates live as text is typed (controlled input) | ✅ Pass |
+| 6 | Save playlist | Add 2+ tracks, rename playlist, click "Save To Spotify" | Playlist resets to empty tracks and default name ("New Playlist") after saving | ✅ Pass |
+| 7 | Persistence after refresh | After saving, refresh the page, then run `JSON.parse(localStorage.getItem('savedPlaylists'))` in the console | Previously saved playlist(s) are still present in localStorage | ✅ Pass |
+
+## Bugs found and fixed during development
+
+These issues came up during the build (Tasks 6–11) and were resolved before this formal test pass:
+
+- **Duplicate `handleClick` function** in `Track.jsx` — two functions with the same name were declared during a debugging step, silently breaking the click handler. Fixed by removing the duplicate.
+- **Missing `onRemove` prop** — `Playlist` component wasn't receiving the `removeTrack` function from `App`, so "remove" buttons didn't render or function. Fixed by explicitly passing `onRemove={removeTrack}`.
+- **Spotify's Implicit Grant Flow deprecated** — the authorization flow originally specified by the course no longer works (Spotify shut it down in November 2025). Migrated to Authorization Code with PKCE.
+- **`127.0.0.1` unreachable on Vite dev server** — after a system restart, Vite's dev server only bound to `localhost`, not `127.0.0.1`, which Spotify's redirect URI required. Fixed by adding `server: { host: true }` to `vite.config.js`.
+- **Spotify Web API 403 error ("Active premium subscription required")** — as of February 2026, Spotify requires the developer app owner to have an active Premium subscription to use Development Mode apps. Since this project uses a free-tier account, the Spotify Search and Playlist endpoints are inaccessible. Migrated search functionality to the iTunes Search API (free, no authentication required) as a substitute.
+- **True "Save to Spotify account" feature not possible** — as a consequence of the above, saving a playlist to an actual Spotify account isn't achievable under the current API access restrictions. Implemented local playlist saving via `localStorage` as a practical, working alternative. See README's "Future work" section.
+
+## Tools used
+
+- Browser DevTools (Console tab) — for reading error messages, inspecting `localStorage`, and confirming state changes
+- Manual click-through testing of every interactive element (search, add, remove, rename, save)
+- Git commit history as an implicit changelog of fixes applied
