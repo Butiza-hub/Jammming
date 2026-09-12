@@ -1,0 +1,14 @@
+.Tracklist {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.Tracklist::-webkit-scrollbar {
+  width: 6px;
+}
+
+.Tracklist::-webkit-scrollbar-thumb {
+  background-color: #2A4A43;
+  border-radius: 6px;
+}

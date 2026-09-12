@@ -1,0 +1,28 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  text-align: center;
+  padding: 1.25rem 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+h1 .highlight {
+  color: #E4A339;
+}
+
+.App-columns {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 0.5rem 1.5rem 1.25rem;
+  flex: 1;
+  min-height: 0;
+}

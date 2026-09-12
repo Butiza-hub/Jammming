@@ -1,0 +1,80 @@
+.Track {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0.5rem;
+  border-bottom: 2px solid #2A4A43;
+  gap: 0.5rem;
+}
+
+.Track:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.Track:last-child {
+  border-bottom: none;
+}
+
+.Track-information h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+
+.Track-information p {
+  color: #9FB8AE;
+  font-size: 0.72rem;
+}
+
+.Track-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.Track-add,
+.Track-remove,
+.Track-play {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #F3ECDD;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.Track-add {
+  background-color: #E4A339;
+  color: #10201D;
+}
+
+.Track-remove {
+  background-color: #C8553D;
+  color: #F3ECDD;
+}
+
+.Track-play {
+  background-color: #10201D;
+  border-color: #E4A339;
+  color: #E4A339;
+  font-size: 0.75rem;
+}
+
+.Track-play.is-playing {
+  background-color: #E4A339;
+  color: #10201D;
+  border-color: #F3ECDD;
+}
+
+.Track-add:hover,
+.Track-remove:hover,
+.Track-play:hover {
+  transform: scale(1.12);
+  box-shadow: 0 0 0 4px rgba(228, 163, 57, 0.3);
+}

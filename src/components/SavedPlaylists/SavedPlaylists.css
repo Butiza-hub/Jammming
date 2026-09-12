@@ -1,0 +1,69 @@
+.SavedPlaylists {
+  background-color: #17302B;
+  border-radius: 12px;
+  padding: 1.1rem;
+  width: 300px;
+  flex: 1 1 300px;
+  max-width: 320px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.Panel-header h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.SavedPlaylists-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.SavedPlaylists-empty {
+  color: #9FB8AE;
+  font-size: 0.8rem;
+}
+
+.SavedPlaylist-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #2A4A43;
+}
+
+.SavedPlaylist-item:last-child {
+  border-bottom: none;
+}
+
+.SavedPlaylist-item h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.1rem;
+}
+
+.SavedPlaylist-item p {
+  color: #9FB8AE;
+  font-size: 0.72rem;
+}
+
+.SavedPlaylist-delete {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #C8553D;
+  color: #F3ECDD;
+  font-size: 0.95rem;
+  border: 2px solid #F3ECDD;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.SavedPlaylist-delete:hover {
+  transform: scale(1.08);
+}

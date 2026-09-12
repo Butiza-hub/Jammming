@@ -1,10 +1,19 @@
 import Tracklist from '../Tracklist/Tracklist';
+import './SearchResults.css';
 
-function SearchResults({ searchResults, onAdd }) {
+function SearchResults({ searchResults, onAdd, onRefresh, onPlay, playingTrackId }) {
   return (
     <div className="SearchResults">
-      <h2>Results</h2>
-      <Tracklist tracks={searchResults} onAdd={onAdd} />
+      <div className="Panel-header">
+        <h2>Results</h2>
+        <button className="RefreshButton" onClick={onRefresh}>⟳ Refresh</button>
+      </div>
+      <Tracklist
+        tracks={searchResults}
+        onAdd={onAdd}
+        onPlay={onPlay}
+        playingTrackId={playingTrackId}
+      />
     </div>
   );
 }

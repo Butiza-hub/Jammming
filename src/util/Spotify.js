@@ -10,7 +10,8 @@ async function search(term) {
     name: track.trackName,
     artist: track.artistName,
     album: track.collectionName,
-    uri: track.trackViewUrl, // iTunes has no Spotify-style "uri", so we use its track page link as a stand-in
+    uri: track.trackViewUrl,
+    previewUrl: track.previewUrl,
   }));
 }
 

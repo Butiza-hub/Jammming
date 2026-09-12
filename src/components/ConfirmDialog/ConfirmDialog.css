@@ -1,0 +1,56 @@
+.ConfirmDialog-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(16, 32, 29, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.ConfirmDialog-box {
+  background-color: #17302B;
+  border-radius: 12px;
+  padding: 1.75rem;
+  width: 320px;
+  max-width: 90%;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+.ConfirmDialog-box p {
+  font-size: 0.95rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+
+.ConfirmDialog-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.ConfirmDialog-yes,
+.ConfirmDialog-no {
+  padding: 0.55rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: transform 0.15s ease;
+}
+
+.ConfirmDialog-yes {
+  background-color: #C8553D;
+  color: #F3ECDD;
+}
+
+.ConfirmDialog-no {
+  background-color: transparent;
+  border: 1.5px solid #2A4A43;
+  color: #F3ECDD;
+}
+
+.ConfirmDialog-yes:hover,
+.ConfirmDialog-no:hover {
+  transform: translateY(-1px);
+}
