@@ -1,7 +1,7 @@
 import Tracklist from '../Tracklist/Tracklist';
 import './SearchResults.css';
 
-function SearchResults({ searchResults, onAdd, onRefresh, onPlay, playingTrackId }) {
+function SearchResults({ searchResults, onRefresh, onPlay, playingTrackId, playlistOptions, onAddToPlaylist }) {
   return (
     <div className="SearchResults">
       <div className="Panel-header">
@@ -10,9 +10,10 @@ function SearchResults({ searchResults, onAdd, onRefresh, onPlay, playingTrackId
       </div>
       <Tracklist
         tracks={searchResults}
-        onAdd={onAdd}
         onPlay={onPlay}
         playingTrackId={playingTrackId}
+        playlistOptions={playlistOptions}
+        onAddToPlaylist={onAddToPlaylist}
       />
     </div>
   );

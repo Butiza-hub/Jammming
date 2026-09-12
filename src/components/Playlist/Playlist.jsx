@@ -11,12 +11,24 @@ function Playlist({ playlistName, playlistTracks, onRemove, onNameChange, onSave
       <div className="Panel-header">
         <input value={playlistName} onChange={handleNameChange} />
       </div>
-      <Tracklist
-        tracks={playlistTracks}
-        onRemove={onRemove}
-        onPlay={onPlay}
-        playingTrackId={playingTrackId}
-      />
+
+      <div className="Playlist-body">
+        {playlistTracks.length === 0 ? (
+          <div className="Playlist-empty">
+            <span className="Playlist-empty-icon">♪</span>
+            <p>Your playlist is empty</p>
+            <span className="Playlist-empty-hint">Add tracks from Results to get started</span>
+          </div>
+        ) : (
+          <Tracklist
+            tracks={playlistTracks}
+            onRemove={onRemove}
+            onPlay={onPlay}
+            playingTrackId={playingTrackId}
+          />
+        )}
+      </div>
+
       <button className="Playlist-save" onClick={onSave}>Save To Spotify</button>
     </div>
   );

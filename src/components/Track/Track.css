@@ -33,6 +33,10 @@
   flex-shrink: 0;
 }
 
+.Track-add-wrapper {
+  position: relative;
+}
+
 .Track-add,
 .Track-remove,
 .Track-play {
@@ -77,4 +81,31 @@
 .Track-play:hover {
   transform: scale(1.12);
   box-shadow: 0 0 0 4px rgba(228, 163, 57, 0.3);
+}
+
+.Track-add-menu {
+  position: absolute;
+  right: 0;
+  top: 36px;
+  background-color: #10201D;
+  border: 1px solid #2A4A43;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+  min-width: 150px;
+  overflow: hidden;
+}
+
+.Track-add-menu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.78rem;
+  color: #F3ECDD;
+}
+
+.Track-add-menu-item:hover {
+  background-color: #17302B;
+  color: #E4A339;
 }

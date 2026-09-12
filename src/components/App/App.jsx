@@ -23,10 +23,31 @@ function App() {
 
   const [pendingDeleteIndex, setPendingDeleteIndex] = useState(null);
 
-  function addTrack(track) {
-    const alreadyAdded = playlistTracks.some((t) => t.id === track.id);
-    if (alreadyAdded) return;
-    setPlaylistTracks([...playlistTracks, track]);
+  const playlistOptions = [
+    { key: 'current', label: playlistName },
+    ...savedPlaylists.map((playlist, index) => ({ key: index, label: playlist.name })),
+  ];
+
+  function addTrackToPlaylist(track, destination) {
+    if (destination === 'current') {
+      setPlaylistTracks((prev) => {
+        const alreadyAdded = prev.some((t) => t.id === track.id);
+        if (alreadyAdded) return prev;
+        return [...prev, track];
+      });
+      return;
+    }
+
+    setSavedPlaylists((prev) => {
+      const updated = prev.map((playlist, index) => {
+        if (index !== destination) return playlist;
+        const alreadyAdded = playlist.tracks.some((t) => t.id === track.id);
+        if (alreadyAdded) return playlist;
+        return { ...playlist, tracks: [...playlist.tracks, track] };
+      });
+      localStorage.setItem('savedPlaylists', JSON.stringify(updated));
+      return updated;
+    });
   }
 
   function removeTrack(track) {
@@ -102,10 +123,11 @@ function App() {
       <div className="App-columns">
         <SearchResults
           searchResults={searchResults}
-          onAdd={addTrack}
           onRefresh={refreshResults}
           onPlay={togglePreview}
           playingTrackId={playingTrackId}
+          playlistOptions={playlistOptions}
+          onAddToPlaylist={addTrackToPlaylist}
         />
         <Playlist
           playlistName={playlistName}

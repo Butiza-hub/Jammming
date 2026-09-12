@@ -27,6 +27,41 @@
   border-color: #E4A339;
 }
 
+.Playlist-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.75rem;
+}
+
+.Playlist-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.4rem;
+}
+
+.Playlist-empty-icon {
+  font-size: 2rem;
+  color: #E4A339;
+}
+
+.Playlist-empty p {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #F3ECDD;
+}
+
+.Playlist-empty-hint {
+  font-size: 0.75rem;
+  color: #9FB8AE;
+}
+
 .Playlist-save {
   background-color: #E4A339;
   color: #10201D;

@@ -1,9 +1,8 @@
+import { useState } from 'react';
 import './Track.css';
 
-function Track({ track, onAdd, onRemove, onPlay, isPlaying }) {
-  function handleAdd() {
-    if (onAdd) onAdd(track);
-  }
+function Track({ track, onRemove, onPlay, isPlaying, playlistOptions, onAddToPlaylist }) {
+  const [menuOpen, setMenuOpen] = useState(false);
 
   function handleRemove() {
     if (onRemove) onRemove(track);
@@ -11,6 +10,19 @@ function Track({ track, onAdd, onRemove, onPlay, isPlaying }) {
 
   function handlePlay() {
     if (onPlay) onPlay(track);
+  }
+
+  function handleAddClick() {
+    if (playlistOptions.length === 1) {
+      onAddToPlaylist(track, playlistOptions[0].key);
+      return;
+    }
+    setMenuOpen((open) => !open);
+  }
+
+  function handleSelectDestination(destinationKey) {
+    onAddToPlaylist(track, destinationKey);
+    setMenuOpen(false);
   }
 
   return (
@@ -25,8 +37,23 @@ function Track({ track, onAdd, onRemove, onPlay, isPlaying }) {
             {isPlaying ? '⏸' : '▶'}
           </button>
         )}
-        {onAdd && (
-          <button className="Track-add" onClick={handleAdd}>+</button>
+        {playlistOptions && (
+          <div className="Track-add-wrapper">
+            <button className="Track-add" onClick={handleAddClick}>+</button>
+            {menuOpen && (
+              <div className="Track-add-menu">
+                {playlistOptions.map((option) => (
+                  <button
+                    key={option.key}
+                    className="Track-add-menu-item"
+                    onClick={() => handleSelectDestination(option.key)}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         )}
         {onRemove && (
           <button className="Track-remove" onClick={handleRemove}>-</button>
