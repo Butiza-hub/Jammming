@@ -95,9 +95,7 @@ function App() {
   }
 
   function refreshResults() {
-    if (lastSearchTerm) {
-      search(lastSearchTerm);
-    }
+    setSearchResults([]);
   }
 
   function togglePreview(track) {
