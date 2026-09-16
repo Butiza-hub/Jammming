@@ -22,7 +22,7 @@ function App() {
   const [playingTrackId, setPlayingTrackId] = useState(null);
   const audioRef = useRef(new Audio());
 
-  const [pendingDeleteIndex, setPendingDeleteIndex] = useState(null);
+  const [pendingAction, setPendingAction] = useState(null);
 
   const playlistOptions = [
     { key: 'current', label: playlistName },
@@ -74,18 +74,34 @@ function App() {
   }
 
   function requestDeleteSavedPlaylist(index) {
-    setPendingDeleteIndex(index);
+    setPendingAction({ type: 'deletePlaylist', index });
   }
 
-  function confirmDeleteSavedPlaylist() {
-    const updated = savedPlaylists.filter((_, i) => i !== pendingDeleteIndex);
-    setSavedPlaylists(updated);
-    localStorage.setItem('savedPlaylists', JSON.stringify(updated));
-    setPendingDeleteIndex(null);
+  function requestRemoveTrackFromSavedPlaylist(playlistIndex, track) {
+    setPendingAction({ type: 'removeTrack', playlistIndex, trackId: track.id });
   }
 
-  function cancelDeleteSavedPlaylist() {
-    setPendingDeleteIndex(null);
+  function confirmPendingAction() {
+    if (pendingAction.type === 'deletePlaylist') {
+      const updated = savedPlaylists.filter((_, i) => i !== pendingAction.index);
+      setSavedPlaylists(updated);
+      localStorage.setItem('savedPlaylists', JSON.stringify(updated));
+    } else if (pendingAction.type === 'removeTrack') {
+      const updated = savedPlaylists.map((playlist, i) => {
+        if (i !== pendingAction.playlistIndex) return playlist;
+        return {
+          ...playlist,
+          tracks: playlist.tracks.filter((t) => t.id !== pendingAction.trackId),
+        };
+      });
+      setSavedPlaylists(updated);
+      localStorage.setItem('savedPlaylists', JSON.stringify(updated));
+    }
+    setPendingAction(null);
+  }
+
+  function cancelPendingAction() {
+    setPendingAction(null);
   }
 
   function search(term) {
@@ -142,16 +158,23 @@ function App() {
           />
           <SavedPlaylists
             savedPlaylists={savedPlaylists}
-            onRequestDelete={requestDeleteSavedPlaylist}
+            onRequestDeletePlaylist={requestDeleteSavedPlaylist}
+            onRequestRemoveTrack={requestRemoveTrackFromSavedPlaylist}
+            onPlay={togglePreview}
+            playingTrackId={playingTrackId}
           />
         </div>
       </div>
 
-      {pendingDeleteIndex !== null && (
+      {pendingAction && (
         <ConfirmDialog
-          message="Are you sure you want to delete this playlist?"
-          onConfirm={confirmDeleteSavedPlaylist}
-          onCancel={cancelDeleteSavedPlaylist}
+          message={
+            pendingAction.type === 'deletePlaylist'
+              ? 'Are you sure you want to delete this playlist?'
+              : 'Are you sure you want to delete this song?'
+          }
+          onConfirm={confirmPendingAction}
+          onCancel={cancelPendingAction}
         />
       )}
     </div>

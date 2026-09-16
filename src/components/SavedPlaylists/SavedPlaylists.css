@@ -28,16 +28,20 @@
   font-size: 0.8rem;
 }
 
+.SavedPlaylist-group {
+  border-bottom: 1px solid #2A4A43;
+}
+
+.SavedPlaylist-group:last-child {
+  border-bottom: none;
+}
+
 .SavedPlaylist-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.6rem 0;
-  border-bottom: 1px solid #2A4A43;
-}
-
-.SavedPlaylist-item:last-child {
-  border-bottom: none;
+  cursor: pointer;
 }
 
 .SavedPlaylist-item h3 {
@@ -68,6 +72,12 @@
   transform: scale(1.08);
 }
 
+.SavedPlaylist-tracks {
+  padding: 0 0 0.5rem 0.5rem;
+  border-left: 2px solid #2A4A43;
+  margin-left: 0.25rem;
+}
+
 @media (max-width: 1200px) {
   .SavedPlaylists {
     width: auto;
@@ -82,4 +92,14 @@
   .SavedPlaylists {
     height: 260px;
   }
+}
+
+.BackButton {
+  color: #9FB8AE;
+  font-size: 0.75rem;
+  transition: color 0.15s ease;
+}
+
+.BackButton:hover {
+  color: #E4A339;
 }
