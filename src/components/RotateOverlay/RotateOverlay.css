@@ -1,0 +1,27 @@
+.RotateOverlay {
+  display: none;
+}
+
+@media (max-width: 900px) and (orientation: portrait) {
+  .RotateOverlay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    padding: 2rem;
+    gap: 1rem;
+  }
+
+  .RotateOverlay-icon {
+    font-size: 3rem;
+    color: #E4A339;
+  }
+
+  .RotateOverlay p {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    max-width: 280px;
+  }
+}

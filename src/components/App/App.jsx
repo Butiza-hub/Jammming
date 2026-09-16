@@ -4,6 +4,7 @@ import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
 import SavedPlaylists from '../SavedPlaylists/SavedPlaylists';
 import ConfirmDialog from '../ConfirmDialog/ConfirmDialog';
+import RotateOverlay from '../RotateOverlay/RotateOverlay';
 import './App.css';
 import MusicApi from '../../util/Spotify';
 
@@ -116,30 +117,34 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Ja<span className="highlight">mmm</span>ing</h1>
-      <SearchBar onSearch={search} />
-      <div className="App-columns">
-        <SearchResults
-          searchResults={searchResults}
-          onRefresh={refreshResults}
-          onPlay={togglePreview}
-          playingTrackId={playingTrackId}
-          playlistOptions={playlistOptions}
-          onAddToPlaylist={addTrackToPlaylist}
-        />
-        <Playlist
-          playlistName={playlistName}
-          playlistTracks={playlistTracks}
-          onRemove={removeTrack}
-          onNameChange={updatePlaylistName}
-          onSave={savePlaylist}
-          onPlay={togglePreview}
-          playingTrackId={playingTrackId}
-        />
-        <SavedPlaylists
-          savedPlaylists={savedPlaylists}
-          onRequestDelete={requestDeleteSavedPlaylist}
-        />
+      <RotateOverlay />
+
+      <div className="App-content">
+        <h1>Ja<span className="highlight">mmm</span>ing</h1>
+        <SearchBar onSearch={search} />
+        <div className="App-columns">
+          <SearchResults
+            searchResults={searchResults}
+            onRefresh={refreshResults}
+            onPlay={togglePreview}
+            playingTrackId={playingTrackId}
+            playlistOptions={playlistOptions}
+            onAddToPlaylist={addTrackToPlaylist}
+          />
+          <Playlist
+            playlistName={playlistName}
+            playlistTracks={playlistTracks}
+            onRemove={removeTrack}
+            onNameChange={updatePlaylistName}
+            onSave={savePlaylist}
+            onPlay={togglePreview}
+            playingTrackId={playingTrackId}
+          />
+          <SavedPlaylists
+            savedPlaylists={savedPlaylists}
+            onRequestDelete={requestDeleteSavedPlaylist}
+          />
+        </div>
       </div>
 
       {pendingDeleteIndex !== null && (
