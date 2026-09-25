@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
@@ -23,6 +23,7 @@ function App() {
   const audioRef = useRef(new Audio());
 
   const [pendingAction, setPendingAction] = useState(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   const playlistOptions = [
     { key: 'current', label: playlistName },
@@ -131,11 +132,78 @@ function App() {
     audioRef.current.onended = () => setPlayingTrackId(null);
   }
 
+  function enterFullscreen() {
+    const el = document.documentElement;
+    if (el.requestFullscreen) {
+      el.requestFullscreen().catch(() => {});
+    } else if (el.webkitRequestFullscreen) {
+      el.webkitRequestFullscreen();
+    }
+  }
+
+  useEffect(() => {
+    function handleFullscreenChange() {
+      setIsFullscreen(Boolean(document.fullscreenElement || document.webkitFullscreenElement));
+    }
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    function checkOrientationAndExit() {
+      const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+      const inFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
+      if (isPortrait && inFullscreen) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      }
+    }
+
+    function handleOrientationChange() {
+      // Give the browser a moment to finish updating layout/orientation
+      // before we check it — matchMedia can briefly report stale values
+      // right when 'orientationchange'/'resize' fires.
+      setTimeout(checkOrientationAndExit, 100);
+    }
+
+    // Prefer the modern Screen Orientation API where available
+    const hasScreenOrientation = window.screen && window.screen.orientation;
+    if (hasScreenOrientation) {
+      window.screen.orientation.addEventListener('change', handleOrientationChange);
+    } else {
+      window.addEventListener('orientationchange', handleOrientationChange);
+    }
+
+    // Fallback net: some browsers only reliably fire 'resize' on rotation
+    window.addEventListener('resize', handleOrientationChange);
+
+    return () => {
+      if (hasScreenOrientation) {
+        window.screen.orientation.removeEventListener('change', handleOrientationChange);
+      } else {
+        window.removeEventListener('orientationchange', handleOrientationChange);
+      }
+      window.removeEventListener('resize', handleOrientationChange);
+    };
+  }, []);
+
   return (
     <div className="App">
       <RotateOverlay />
 
       <div className="App-content">
+        {!isFullscreen && (
+          <button className="FullscreenButton" onClick={enterFullscreen}>
+            ⛶ Fullscreen
+          </button>
+        )}
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <SearchBar onSearch={search} />
         <div className="App-columns">

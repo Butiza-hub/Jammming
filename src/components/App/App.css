@@ -37,9 +37,33 @@ h1 .highlight {
   }
 }
 
+.App {
+  min-height: 100vh;
+  position: relative;
+}
+
 @media (max-height: 500px) and (orientation: landscape) {
   h1 {
     font-size: 1rem;
     padding: 0.3rem 0 0.3rem;
+  }
+}
+
+.FullscreenButton {
+  display: none;
+}
+
+@media (max-width: 950px) and (orientation: landscape) {
+  .FullscreenButton {
+    display: block;
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    color: #E4A339;
+    font-size: 0.7rem;
+    border: 1px solid #E4A339;
+    border-radius: 6px;
+    padding: 0.25rem 0.6rem;
+    z-index: 5;
   }
 }
