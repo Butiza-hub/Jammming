@@ -1,15 +1,34 @@
 import Tracklist from '../Tracklist/Tracklist';
 import './Playlist.css';
 
+const DEFAULT_NAME = 'New Playlist';
+
 function Playlist({ playlistName, playlistTracks, onRemove, onNameChange, onSave, onPlay, playingTrackId }) {
   function handleNameChange(event) {
     onNameChange(event.target.value);
   }
 
+  function handleFocus() {
+    if (playlistName === DEFAULT_NAME) {
+      onNameChange('');
+    }
+  }
+
+  function handleBlur() {
+    if (playlistName.trim() === '') {
+      onNameChange(DEFAULT_NAME);
+    }
+  }
+
   return (
     <div className="Playlist">
       <div className="Panel-header">
-        <input value={playlistName} onChange={handleNameChange} />
+        <input
+          value={playlistName}
+          onChange={handleNameChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        />
       </div>
 
       <div className="Playlist-body">
